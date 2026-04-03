@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <section className="dashboard-hero">
+      <section className="dashboard-hero scroll-anchor" id="overview">
         <div>
           <p className="dashboard-kicker">Overview</p>
           <h1>Track balance, spending patterns, and recent activity in one place.</h1>
@@ -53,9 +53,16 @@ const Dashboard = () => {
       </div>
       <TransactionTable />
       <Insights />
-      <p className="dashboard-footnote">
-        Demo note: transactions and role changes are stored locally in this browser.
-      </p>
+
+      <section className="dashboard-settings scroll-anchor" id="settings">
+        <h3>Settings</h3>
+        <div className="dashboard-settings-card">
+          <p>
+            Theme + role are controlled from the top bar. Demo note: transactions and role
+            changes are stored locally in this browser.
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

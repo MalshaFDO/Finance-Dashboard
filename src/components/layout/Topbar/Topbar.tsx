@@ -36,7 +36,7 @@ const Topbar = ({ onMenuToggle }: TopbarProps) => {
           aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
           title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         >
-          <span className="theme-toggle-track">
+          <span className="theme-toggle-track" aria-hidden="true">
             <span className="theme-toggle-thumb">{theme === "dark" ? "☾" : "☀"}</span>
           </span>
           <span className="theme-toggle-label">
@@ -56,7 +56,28 @@ const Topbar = ({ onMenuToggle }: TopbarProps) => {
           </select>
         </label>
 
-        <div className="avatar">N</div>
+        <div className="role-segment" aria-label="Select role">
+          <button
+            type="button"
+            className={`role-segment-button ${role === "viewer" ? "is-active" : ""}`}
+            aria-pressed={role === "viewer"}
+            onClick={() => setRole("viewer")}
+          >
+            Viewer
+          </button>
+          <button
+            type="button"
+            className={`role-segment-button ${role === "admin" ? "is-active" : ""}`}
+            aria-pressed={role === "admin"}
+            onClick={() => setRole("admin")}
+          >
+            Admin
+          </button>
+        </div>
+
+        <div className="avatar" aria-label="User avatar">
+          N
+        </div>
       </div>
     </div>
   );

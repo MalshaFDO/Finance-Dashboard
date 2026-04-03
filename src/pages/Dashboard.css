@@ -97,6 +97,36 @@
   text-align: center;
 }
 
+.dashboard-settings {
+  display: grid;
+  gap: 14px;
+}
+
+.dashboard-settings h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1.35rem;
+}
+
+.dashboard-settings-card {
+  padding: 20px 22px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(212, 175, 55, 0.16), transparent 40%),
+    linear-gradient(135deg, rgba(22, 28, 36, 0.92), var(--card-bg));
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 18px 48px var(--shadow-color);
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.app-layout.theme-light .dashboard-settings-card {
+  background:
+    radial-gradient(circle at top left, rgba(212, 175, 55, 0.18), transparent 40%),
+    linear-gradient(135deg, rgba(255, 250, 240, 0.94), var(--card-bg));
+  color: var(--text-soft);
+}
+
 .dashboard-sync-indicator {
   margin: 14px 0 0;
   color: var(--primary-gold);
@@ -176,5 +206,10 @@
 
   .dashboard-footnote {
     font-size: 0.82rem;
+  }
+
+  .dashboard-settings-card {
+    padding: 18px;
+    border-radius: 18px;
   }
 }

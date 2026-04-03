@@ -84,6 +84,16 @@ select {
   font: inherit;
 }
 
+.scroll-anchor {
+  scroll-margin-top: 96px;
+}
+
+@media (max-width: 640px) {
+  .scroll-anchor {
+    scroll-margin-top: 156px;
+  }
+}
+
 img,
 svg,
 canvas {

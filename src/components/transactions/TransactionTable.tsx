@@ -220,7 +220,7 @@ const TransactionTable = () => {
   };
 
   return (
-    <section className="table-container">
+    <section className="table-container scroll-anchor" id="transactions">
       <div className="section-heading">
         <div>
           <h3>Transactions</h3>

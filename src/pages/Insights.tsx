@@ -89,7 +89,7 @@ const Insights = () => {
   }
 
   return (
-    <section className="insights">
+    <section className="insights scroll-anchor" id="insights">
       <h3>Insights</h3>
       <div className="insight-grid">
         <div className="insight-card">
