@@ -1,0 +1,61 @@
+.card {
+  background:
+    linear-gradient(180deg, var(--surface-soft), rgba(255, 255, 255, 0.02)),
+    var(--card-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 16px 40px var(--shadow-color);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.card-amount {
+  margin: 10px 0 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-soft);
+}
+
+.income {
+  border-color: rgba(124, 224, 184, 0.26);
+}
+
+.expense {
+  border-color: rgba(255, 143, 122, 0.26);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 175, 55, 0.28);
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 20px;
+  }
+
+  .card-amount {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 18px;
+  }
+
+  .card-title {
+    font-size: 0.82rem;
+  }
+
+  .card-amount {
+    font-size: 1.45rem;
+  }
+}

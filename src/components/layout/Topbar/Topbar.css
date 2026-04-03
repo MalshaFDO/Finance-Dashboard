@@ -1,0 +1,359 @@
+.topbar {
+  min-height: 72px;
+  background: var(--nav-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--surface-border);
+  backdrop-filter: blur(18px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.16), var(--surface-soft));
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text-strong);
+}
+
+.topbar-title-block h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1.9rem;
+}
+
+.topbar-kicker {
+  margin: 0 0 6px;
+  color: var(--primary-gold);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), var(--surface-soft));
+  color: var(--text-strong);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+  box-shadow: 0 12px 24px var(--shadow-color);
+}
+
+.role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), var(--surface-soft));
+  box-shadow: 0 12px 24px var(--shadow-color);
+}
+
+.role-pill-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-gold);
+}
+
+.theme-toggle-pill:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(212, 175, 55, 0.22),
+    0 12px 24px var(--shadow-color);
+}
+
+.theme-toggle-pill:hover {
+  transform: translateY(-1px) scale(1.01);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.theme-toggle-track {
+  width: 54px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(9, 16, 24, 0.75);
+  padding: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle-pill.light .theme-toggle-track {
+  background: rgba(255, 217, 102, 0.42);
+}
+
+.theme-toggle-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #fff7d6, #ffd166);
+  color: #5a3d00;
+  font-size: 0.9rem;
+  transform: translateX(0);
+  transition: transform 0.22s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.theme-toggle-pill.dark .theme-toggle-thumb {
+  background: linear-gradient(180deg, #d7d9ff, #8ea3ff);
+  color: #19203f;
+}
+
+.theme-toggle-pill.light .theme-toggle-thumb {
+  transform: translateX(24px);
+}
+
+.theme-toggle-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  letter-spacing: 0.01em;
+}
+
+.topbar select {
+  padding: 8px 30px 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--field-bg);
+  color: var(--text-strong);
+  font-weight: 700;
+  appearance: none;
+  min-width: 108px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.24), var(--surface-soft));
+  border: 1px solid var(--surface-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-strong);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    padding: 14px 16px;
+  }
+
+  .topbar-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 12px;
+  }
+
+  .topbar-left {
+    width: 100%;
+  }
+
+  .topbar-right {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .topbar-title-block h3 {
+    font-size: 1.55rem;
+    line-height: 1.08;
+  }
+}
+
+@media (max-width: 760px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .topbar-right::-webkit-scrollbar {
+    display: none;
+  }
+
+  .theme-toggle-pill {
+    justify-content: flex-start;
+    width: auto;
+    min-width: fit-content;
+    height: 34px;
+    padding: 4px 8px 4px 4px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: none;
+    flex: 0 0 auto;
+  }
+
+  .theme-toggle-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .theme-toggle-track {
+    width: 34px;
+    height: 19px;
+  }
+
+  .theme-toggle-thumb {
+    width: 13px;
+    height: 13px;
+    font-size: 0.52rem;
+  }
+
+  .theme-toggle-pill.light .theme-toggle-thumb {
+    transform: translateX(15px);
+  }
+
+  .role-pill {
+    gap: 0;
+    padding: 0 8px;
+    border-radius: 14px;
+    min-width: fit-content;
+    max-width: none;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: none;
+    flex: 0 0 auto;
+  }
+
+  .role-pill-label {
+    display: none;
+  }
+
+  .topbar select {
+    width: auto;
+    min-width: 72px;
+    padding: 0 18px 0 0;
+    height: 100%;
+    font-size: 0.72rem;
+    border: none;
+    background: transparent;
+  }
+
+  .avatar {
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .topbar-left {
+    gap: 10px;
+  }
+
+  .menu-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .topbar-title-block h3 {
+    font-size: 1.35rem;
+  }
+
+  .topbar-kicker {
+    font-size: 0.68rem;
+  }
+
+  .theme-toggle-track {
+    width: 30px;
+    height: 17px;
+  }
+
+  .theme-toggle-pill {
+    gap: 4px;
+    padding: 3px 7px 3px 4px;
+    height: 30px;
+  }
+
+  .theme-toggle-label {
+    font-size: 0.6rem;
+  }
+
+  .theme-toggle-thumb {
+    width: 11px;
+    height: 11px;
+    font-size: 0.46rem;
+  }
+
+  .theme-toggle-pill.light .theme-toggle-thumb {
+    transform: translateX(13px);
+  }
+
+  .role-pill {
+    padding: 0 7px;
+    height: 30px;
+  }
+
+  .topbar select {
+    min-width: 0;
+    padding-right: 16px;
+    font-size: 0.66rem;
+  }
+
+  .avatar {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+  }
+}

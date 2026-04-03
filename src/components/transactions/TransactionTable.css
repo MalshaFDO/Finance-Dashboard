@@ -1,0 +1,399 @@
+.table-container {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: 20px;
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 18px 48px var(--shadow-color);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-heading h3 {
+  margin: 0;
+}
+
+.section-heading p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+}
+
+.role-badge {
+  white-space: nowrap;
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-soft);
+}
+
+.role-badge.admin {
+  color: var(--income-green);
+  border-color: rgba(124, 224, 184, 0.18);
+}
+
+.role-badge.viewer {
+  color: var(--text-soft);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: min(100%, 1180px);
+  min-width: 760px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th {
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02); /* Subtle hover effect */
+}
+
+.group-row {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.group-row td {
+  color: var(--primary-gold);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+td {
+  padding: 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  text-align: right;
+}
+
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+.table-container h3 {
+  margin: 0 0 16px;
+}
+
+.income {
+  color: var(--income-green);
+  font-weight: 500;
+}
+
+.expense {
+  color: var(--expense-red);
+  font-weight: 500;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.controls input,
+.add-form input,
+.controls select,
+.add-form select,
+td input,
+td select {
+  padding: 10px 12px;
+  background: var(--field-bg);
+  color: var(--text-strong);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.add-form {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr auto;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: start;
+}
+
+.field-group {
+  display: grid;
+  gap: 6px;
+}
+
+.cell-editor {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+}
+
+.field-error {
+  color: #ffb4a7;
+  font-size: 0.76rem;
+  line-height: 1.3;
+}
+
+.validation-hint,
+.status-banner {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+.results-summary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+
+.results-summary span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  border: 1px solid var(--surface-border);
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+
+.validation-hint {
+  color: var(--text-muted);
+}
+
+.status-banner {
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #d8f3e6;
+  background: rgba(124, 224, 184, 0.12);
+  border: 1px solid rgba(124, 224, 184, 0.2);
+}
+
+.controls input::placeholder,
+.add-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.add-form button,
+.inline-button,
+.ghost-button {
+  padding: 10px 14px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.add-form button:disabled,
+.inline-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.inline-button {
+  padding: 8px 12px;
+}
+
+.ghost-button {
+  background: var(--surface-soft);
+  color: var(--text-soft);
+  border: 1px solid var(--surface-border);
+}
+
+.danger-button {
+  background: rgba(255, 143, 122, 0.16);
+  color: #ffd4cc;
+  border: 1px solid rgba(255, 143, 122, 0.28);
+}
+
+.controls input:focus,
+.controls select:focus,
+.add-form input:focus,
+.add-form select:focus,
+td input:focus,
+td select:focus {
+  outline: none;
+  border-color: rgba(124, 224, 184, 0.45);
+  box-shadow: 0 0 0 3px rgba(124, 224, 184, 0.12);
+}
+
+.inline-button:hover,
+.ghost-button:hover,
+.add-form button:hover {
+  transform: translateY(-1px);
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.empty-row {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-panel {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.empty-panel h4,
+.empty-panel p {
+  margin: 0;
+}
+
+.empty-panel p {
+  margin-top: 8px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .controls,
+  .section-heading,
+  .results-summary {
+    flex-direction: column;
+  }
+
+  .table-container {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .section-heading p {
+    font-size: 0.95rem;
+  }
+
+  .role-badge {
+    white-space: normal;
+    width: 100%;
+    text-align: center;
+  }
+
+  .add-form {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    gap: 12px;
+  }
+
+  .controls input,
+  .controls select,
+  .ghost-button,
+  .add-form button {
+    width: 100%;
+  }
+
+  .results-summary span {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .table-wrapper {
+    overflow: visible;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  table {
+    min-width: 0;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  tr {
+    padding: 4px 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 14px;
+    text-align: right;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  td::before {
+    content: attr(data-label);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  td input,
+  td select {
+    max-width: 180px;
+  }
+
+  .cell-editor {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .actions-cell {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .empty-row {
+    display: block;
+    text-align: center;
+  }
+
+  .empty-row::before {
+    content: none;
+  }
+}

@@ -1,0 +1,201 @@
+:root {
+  --bg-base: #091018;
+  --bg-elevated: #111a23;
+  --card-bg: #111a23;
+  --primary-gold: #d4af37;
+  --text-muted: #94a3b8;
+  --text-soft: #d8dee9;
+  --text-strong: #ffffff;
+  --income-green: #7ce0b8;
+  --expense-red: #ff8f7a;
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --surface-soft: rgba(255, 255, 255, 0.04);
+  --field-bg: #15181d;
+  --nav-bg: rgba(10, 14, 19, 0.9);
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --sidebar-bg: #0c1118;
+  --sidebar-text: #d8dee9;
+  --sidebar-text-muted: #94a3b8;
+  --sidebar-hover: rgba(255, 255, 255, 0.05);
+  --hero-title: #f8fbff;
+  --hero-body: #e2e8f5;
+  --hero-pill-title: #ffffff;
+  --hero-pill-body: #dbe4f2;
+}
+
+:root[data-theme="light"] {
+  --bg-base: #f3efe3;
+  --bg-elevated: #fffaf0;
+  --card-bg: rgba(255, 250, 240, 0.94);
+  --primary-gold: #8a6a0a;
+  --text-muted: #6f6a60;
+  --text-soft: #1f2937;
+  --text-strong: #101828;
+  --income-green: #1e9f6e;
+  --expense-red: #d9485f;
+  --surface-border: rgba(16, 24, 40, 0.1);
+  --surface-soft: rgba(255, 255, 255, 0.7);
+  --field-bg: #fffdf7;
+  --nav-bg: rgba(255, 250, 240, 0.88);
+  --shadow-color: rgba(95, 75, 30, 0.12);
+  --sidebar-bg: #141922;
+  --sidebar-text: #f5f7fb;
+  --sidebar-text-muted: #c3cfdf;
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --hero-title: #fffdf7;
+  --hero-body: #5f584d;
+  --hero-pill-title: #101828;
+  --hero-pill-body: #6f6a60;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.16), transparent 28%),
+    linear-gradient(180deg, var(--bg-base) 0%, var(--bg-elevated) 100%);
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  color: var(--text-strong);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  transition: background 0.35s ease, color 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  --bg-base: #091018;
+  --bg-elevated: #111a23;
+  --card-bg: #111a23;
+  --primary-gold: #d4af37;
+  --text-muted: #94a3b8;
+  --text-soft: #d8dee9;
+  --text-strong: #ffffff;
+  --income-green: #7ce0b8;
+  --expense-red: #ff8f7a;
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --surface-soft: rgba(255, 255, 255, 0.04);
+  --field-bg: #15181d;
+  --nav-bg: rgba(10, 14, 19, 0.9);
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --sidebar-bg: #0c1118;
+  --sidebar-text: #d8dee9;
+  --sidebar-text-muted: #94a3b8;
+  --sidebar-hover: rgba(255, 255, 255, 0.05);
+  --hero-title: #f8fbff;
+  --hero-body: #e2e8f5;
+  --hero-pill-title: #ffffff;
+  --hero-pill-body: #dbe4f2;
+}
+
+.app-layout.theme-light {
+  --bg-base: #f3efe3;
+  --bg-elevated: #fffaf0;
+  --card-bg: rgba(255, 250, 240, 0.94);
+  --primary-gold: #8a6a0a;
+  --text-muted: #6f6a60;
+  --text-soft: #1f2937;
+  --text-strong: #101828;
+  --income-green: #1e9f6e;
+  --expense-red: #d9485f;
+  --surface-border: rgba(16, 24, 40, 0.1);
+  --surface-soft: rgba(255, 255, 255, 0.7);
+  --field-bg: #fffdf7;
+  --nav-bg: rgba(255, 250, 240, 0.88);
+  --shadow-color: rgba(95, 75, 30, 0.12);
+  --sidebar-bg: #141922;
+  --sidebar-text: #f5f7fb;
+  --sidebar-text-muted: #c3cfdf;
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --hero-title: #fffdf7;
+  --hero-body: #5f584d;
+  --hero-pill-title: #101828;
+  --hero-pill-body: #6f6a60;
+}
+
+.app-layout.theme-dark {
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.12), transparent 18%),
+    linear-gradient(180deg, #091018 0%, #111a23 100%);
+}
+
+.main-content {
+  margin-left: 220px;
+  width: 100%;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(8, 12, 18, 0.98), rgba(11, 18, 32, 0.95));
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+.app-layout.theme-light .main-content {
+  background:
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(255, 248, 237, 0.95), rgba(243, 239, 227, 0.95));
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 220px;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-layout {
+    display: block;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    border: none;
+    background: rgba(3, 7, 18, 0.56);
+    backdrop-filter: blur(2px);
+    z-index: 24;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    min-width: 0;
+  }
+}
