@@ -138,11 +138,12 @@ td:last-child {
   opacity: 0.85;
 }
 
-.controls-actions {
+.controls-footer {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-start;
+  margin-top: 2px;
 }
 
 .filters-panel {
@@ -154,7 +155,6 @@ td:last-child {
 
 .filters-panel.is-open {
   display: grid;
-}
 }
 
 .date-range {
@@ -200,8 +200,7 @@ td:last-child {
     flex-wrap: nowrap;
   }
 
-  .controls-actions {
-    margin-left: auto;
+  .controls-footer {
     justify-content: flex-end;
   }
 
