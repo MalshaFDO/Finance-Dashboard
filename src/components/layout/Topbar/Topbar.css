@@ -355,47 +355,44 @@
   .topbar-right {
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 36px;
-    grid-template-areas:
-      "theme profile"
-      "role currency";
+    grid-template-columns: 42px minmax(0, 1fr) minmax(0, 1fr) 36px;
+    grid-template-areas: "theme role currency profile";
     align-items: center;
     gap: 8px;
   }
 
   .theme-toggle-pill {
     grid-area: theme;
-    justify-content: flex-start;
-    width: 100%;
-    min-width: 0;
+    justify-content: center;
+    width: 42px;
+    min-width: 42px;
     height: 36px;
-    padding: 4px 10px 4px 6px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), var(--surface-soft));
+    padding: 0;
+    border-radius: 14px;
+    border-color: rgba(212, 175, 55, 0.28);
+    background:
+      radial-gradient(circle at top left, rgba(212, 175, 55, 0.28), transparent 68%),
+      linear-gradient(135deg, rgba(212, 175, 55, 0.18), var(--surface-soft));
     box-shadow: none;
   }
 
   .theme-toggle-label {
-    display: inline;
-    font-size: 0.76rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: none;
   }
 
   .theme-toggle-track {
-    width: 40px;
-    height: 22px;
+    width: 30px;
+    height: 18px;
   }
 
   .theme-toggle-thumb {
-    width: 16px;
-    height: 16px;
-    font-size: 0.7rem;
+    width: 12px;
+    height: 12px;
+    font-size: 0.58rem;
   }
 
   .theme-toggle-pill.light .theme-toggle-thumb {
-    transform: translateX(16px);
+    transform: translateX(12px);
   }
 
   .role-pill {
@@ -405,7 +402,10 @@
     height: 36px;
     padding: 5px 10px 5px 12px;
     border-radius: 999px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), var(--surface-soft));
+    border-color: rgba(212, 175, 55, 0.24);
+    background:
+      radial-gradient(circle at top left, rgba(212, 175, 55, 0.18), transparent 62%),
+      linear-gradient(135deg, rgba(212, 175, 55, 0.14), var(--surface-soft));
     box-shadow: none;
     overflow: hidden;
   }
@@ -418,28 +418,26 @@
     padding: 5px 10px 5px 12px;
     gap: 6px;
     border-radius: 999px;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), var(--surface-soft));
+    border-color: rgba(212, 175, 55, 0.24);
+    background:
+      radial-gradient(circle at top left, rgba(212, 175, 55, 0.18), transparent 62%),
+      linear-gradient(135deg, rgba(212, 175, 55, 0.14), var(--surface-soft));
     box-shadow: none;
     overflow: hidden;
   }
 
   .role-pill-label,
   .currency-pill-label {
-    display: inline;
-    font-size: 0.68rem;
-  }
-
-  .currency-pill-label {
-    font-size: 0.64rem;
-    letter-spacing: 0.06em;
+    display: none;
   }
 
   .role-pill select {
     flex: 1 1 auto;
     min-width: 0;
     width: 100%;
-    padding: 5px 26px 5px 10px;
+    padding: 5px 22px 5px 10px;
     font-size: 0.78rem;
+    text-align: center;
     color: var(--text-strong);
     -webkit-text-fill-color: var(--text-strong);
   }
@@ -448,9 +446,10 @@
     flex: 1 1 auto;
     min-width: 0;
     width: 100%;
-    padding: 5px 22px 5px 8px;
+    padding: 5px 20px 5px 8px;
     font-size: 0.78rem;
     font-weight: 800;
+    text-align: center;
     color: var(--text-strong);
     -webkit-text-fill-color: var(--text-strong);
   }
@@ -464,6 +463,10 @@
     width: 36px;
     min-width: 36px;
     height: 36px;
+    border-color: rgba(212, 175, 55, 0.26);
+    background:
+      radial-gradient(circle at top left, rgba(212, 175, 55, 0.28), transparent 65%),
+      linear-gradient(135deg, rgba(212, 175, 55, 0.2), var(--surface-soft));
   }
 
   .profile-menu {
@@ -476,10 +479,8 @@
 
 @media (max-width: 380px) {
   .topbar-right {
-    grid-template-columns: minmax(0, 1fr) 34px;
-    grid-template-areas:
-      "theme profile"
-      "role currency";
+    grid-template-columns: 38px minmax(0, 1fr) minmax(0, 1fr) 34px;
+    grid-template-areas: "theme role currency profile";
   }
 
   .topbar-left {
@@ -501,58 +502,42 @@
   }
 
   .theme-toggle-pill {
-    min-width: 0;
+    width: 38px;
+    min-width: 38px;
     height: 34px;
-    padding: 4px 9px 4px 6px;
-  }
-
-  .theme-toggle-label {
-    font-size: 0.74rem;
+    padding: 0;
   }
 
   .theme-toggle-track {
-    width: 38px;
-    height: 21px;
+    width: 28px;
+    height: 16px;
   }
 
   .theme-toggle-thumb {
-    width: 15px;
-    height: 15px;
-    font-size: 0.68rem;
+    width: 11px;
+    height: 11px;
+    font-size: 0.52rem;
   }
 
   .theme-toggle-pill.light .theme-toggle-thumb {
-    transform: translateX(15px);
+    transform: translateX(11px);
   }
 
   .role-pill,
   .currency-pill {
     height: 34px;
-    padding: 4px 9px 4px 12px;
-  }
-
-  .currency-pill {
-    min-width: 0;
-  }
-
-  .role-pill-label,
-  .currency-pill-label {
-    font-size: 0.68rem;
-  }
-
-  .currency-pill-label {
-    display: none;
+    padding: 4px 8px 4px 10px;
   }
 
   .role-pill select {
     min-width: 0;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
   }
 
   .currency-pill select {
     min-width: 0;
-    font-size: 0.78rem;
-    padding-right: 20px;
+    font-size: 0.74rem;
+    padding-right: 18px;
   }
 
   .avatar {
