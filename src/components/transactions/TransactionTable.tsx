@@ -354,37 +354,53 @@ const TransactionTable = () => {
             </svg>
             Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
           </button>
-        </div>
 
-        <div className="control control-date" aria-label="Filter by date range">
-          <div className="control-label">Date range</div>
-          <div className="date-range">
-            <label className="date-field">
-              <span className="date-field-label">From</span>
-              <input
-                type="date"
-                value={dateFrom}
-                aria-label="Start date"
-                onChange={(event) => setDateFrom(event.target.value)}
-              />
-            </label>
-
-            <label className="date-field">
-              <span className="date-field-label">To</span>
-              <input
-                type="date"
-                value={dateTo}
-                aria-label="End date"
-                onChange={(event) => setDateTo(event.target.value)}
-              />
-            </label>
-          </div>
+          <button
+            type="button"
+            className="ghost-button"
+            onClick={() => {
+              setSearch("");
+              setFilter("all");
+              setCategoryFilter("all");
+              setDateFrom("");
+              setDateTo("");
+              setSortBy("date-desc");
+              setGroupBy("none");
+            }}
+          >
+            Reset
+          </button>
         </div>
 
         <div
           id="transactions-filters"
           className={`filters-panel ${filtersOpen ? "is-open" : ""}`}
         >
+          <div className="control control-date" aria-label="Filter by date range">
+            <div className="control-label">Date range</div>
+            <div className="date-range">
+              <label className="date-field">
+                <span className="date-field-label">From</span>
+                <input
+                  type="date"
+                  value={dateFrom}
+                  aria-label="Start date"
+                  onChange={(event) => setDateFrom(event.target.value)}
+                />
+              </label>
+
+              <label className="date-field">
+                <span className="date-field-label">To</span>
+                <input
+                  type="date"
+                  value={dateTo}
+                  aria-label="End date"
+                  onChange={(event) => setDateTo(event.target.value)}
+                />
+              </label>
+            </div>
+          </div>
+
           <select
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
@@ -432,22 +448,6 @@ const TransactionTable = () => {
         </div>
 
         <div className="controls-footer">
-          <button
-            type="button"
-            className="ghost-button"
-            onClick={() => {
-              setSearch("");
-              setFilter("all");
-              setCategoryFilter("all");
-              setDateFrom("");
-              setDateTo("");
-              setSortBy("date-desc");
-              setGroupBy("none");
-            }}
-          >
-            Reset
-          </button>
-
           <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
             Export CSV
           </button>
