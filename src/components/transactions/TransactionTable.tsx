@@ -29,14 +29,14 @@ const TransactionTable = () => {
 
   const hasInvalidDateRange = Boolean(dateFrom && dateTo && dateFrom > dateTo);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 920px)");
-    const apply = () => setFiltersOpen(mediaQuery.matches);
-
-    apply();
-    mediaQuery.addEventListener("change", apply);
-    return () => mediaQuery.removeEventListener("change", apply);
-  }, []);
+  const activeFilterCount = [
+    filter !== "all",
+    categoryFilter !== "all",
+    Boolean(dateFrom),
+    Boolean(dateTo),
+    sortBy !== "date-desc",
+    groupBy !== "none",
+  ].filter(Boolean).length;
 
   const filteredTransactions = [...transactions]
     .filter((transaction) => {
@@ -352,8 +352,34 @@ const TransactionTable = () => {
                 d="M3 5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4A1 1 0 0 1 3 5Zm4 7a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1Zm3 7a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1Z"
               />
             </svg>
-            Filters
+            Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
           </button>
+
+          <div className="controls-actions">
+            <button
+              type="button"
+              className="ghost-button"
+              onClick={() => {
+                setSearch("");
+                setFilter("all");
+                setCategoryFilter("all");
+                setDateFrom("");
+                setDateTo("");
+                setSortBy("date-desc");
+                setGroupBy("none");
+              }}
+            >
+              Reset
+            </button>
+
+            <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
+              Export CSV
+            </button>
+
+            <button type="button" className="ghost-button" onClick={() => exportTransactions("json")}>
+              Export JSON
+            </button>
+          </div>
         </div>
 
         <div
@@ -429,32 +455,6 @@ const TransactionTable = () => {
             <option value="category">Group by category</option>
             <option value="type">Group by type</option>
           </select>
-
-          <div className="controls-actions control control-actions">
-            <button
-              type="button"
-              className="ghost-button"
-              onClick={() => {
-                setSearch("");
-                setFilter("all");
-                setCategoryFilter("all");
-                setDateFrom("");
-                setDateTo("");
-                setSortBy("date-desc");
-                setGroupBy("none");
-              }}
-            >
-              Reset
-            </button>
-
-            <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
-              Export CSV
-            </button>
-
-            <button type="button" className="ghost-button" onClick={() => exportTransactions("json")}>
-              Export JSON
-            </button>
-          </div>
         </div>
       </div>
 
