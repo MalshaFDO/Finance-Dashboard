@@ -1,12 +1,38 @@
-import "./Topbar.css";
+﻿import "./Topbar.css";
+import { useEffect, useRef, useState } from "react";
 import { useAppContext } from "../../../context/AppContext";
+import type { CurrencyCode } from "../../../types/currency";
+import { supportedCurrencies } from "../../../types/currency";
 
 type TopbarProps = {
   onMenuToggle: () => void;
 };
 
 const Topbar = ({ onMenuToggle }: TopbarProps) => {
-  const { role, setRole, theme, toggleTheme } = useAppContext();
+  const { role, setRole, theme, toggleTheme, currency, setCurrency } = useAppContext();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isProfileOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!profileRef.current) return;
+      if (profileRef.current.contains(event.target as Node)) return;
+      setIsProfileOpen(false);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsProfileOpen(false);
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isProfileOpen]);
 
   return (
     <div className="topbar">
@@ -56,27 +82,58 @@ const Topbar = ({ onMenuToggle }: TopbarProps) => {
           </select>
         </label>
 
-        <div className="role-segment" aria-label="Select role">
-          <button
-            type="button"
-            className={`role-segment-button ${role === "viewer" ? "is-active" : ""}`}
-            aria-pressed={role === "viewer"}
-            onClick={() => setRole("viewer")}
+        <label className="currency-pill">
+          <span className="currency-pill-label">Currency</span>
+          <select
+            value={currency}
+            aria-label="Select currency"
+            onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
           >
-            Viewer
-          </button>
-          <button
-            type="button"
-            className={`role-segment-button ${role === "admin" ? "is-active" : ""}`}
-            aria-pressed={role === "admin"}
-            onClick={() => setRole("admin")}
-          >
-            Admin
-          </button>
-        </div>
+            {supportedCurrencies.map((entry) => (
+              <option key={entry.code} value={entry.code}>
+                {entry.label}
+              </option>
+            ))}
+          </select>
+        </label>
 
-        <div className="avatar" aria-label="User avatar">
-          N
+        <div className="profile" ref={profileRef}>
+          <button
+            type="button"
+            className="avatar"
+            aria-label="Open profile menu"
+            aria-haspopup="menu"
+            aria-expanded={isProfileOpen}
+            onClick={() => setIsProfileOpen((current) => !current)}
+          >
+            M
+          </button>
+
+          {isProfileOpen && (
+            <div className="profile-menu" role="menu" aria-label="Profile options">
+              <button
+                type="button"
+                className="profile-menu-item"
+                role="menuitem"
+                onClick={() => {
+                  setIsProfileOpen(false);
+                  document
+                    .getElementById("settings")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+              >
+                Settings
+              </button>
+              <button
+                type="button"
+                className="profile-menu-item"
+                role="menuitem"
+                onClick={() => setIsProfileOpen(false)}
+              >
+                Edit
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

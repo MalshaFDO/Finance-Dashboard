@@ -6,19 +6,14 @@ import type { Transaction } from "../../types/transactions";
 type SortOption = "date-desc" | "date-asc" | "amount-desc" | "amount-asc";
 type GroupOption = "none" | "date" | "category" | "type";
 
-const getCurrency = (amount: number) =>
-  new Intl.NumberFormat("en-LK", {
-    style: "currency",
-    currency: "LKR",
-    maximumFractionDigits: 0,
-  }).format(amount);
-
 const TransactionTable = () => {
-  const { transactions, role, addTransaction, updateTransaction, deleteTransaction } =
+  const { transactions, role, addTransaction, updateTransaction, deleteTransaction, formatCurrency } =
     useAppContext();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("date-desc");
   const [groupBy, setGroupBy] = useState<GroupOption>("none");
   const [formState, setFormState] = useState({
@@ -30,6 +25,8 @@ const TransactionTable = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingState, setEditingState] = useState<Transaction | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
+
+  const hasInvalidDateRange = Boolean(dateFrom && dateTo && dateFrom > dateTo);
 
   const filteredTransactions = [...transactions]
     .filter((transaction) => {
@@ -46,8 +43,17 @@ const TransactionTable = () => {
       const matchesFilter = filter === "all" ? true : transaction.type === filter;
       const matchesCategory =
         categoryFilter === "all" ? true : transaction.category === categoryFilter;
+      const matchesDateFrom = !dateFrom || transaction.date >= dateFrom;
+      const matchesDateTo = !dateTo || transaction.date <= dateTo;
 
-      return matchesSearch && matchesFilter && matchesCategory;
+      return (
+        !hasInvalidDateRange &&
+        matchesSearch &&
+        matchesFilter &&
+        matchesCategory &&
+        matchesDateFrom &&
+        matchesDateTo
+      );
     })
     .sort((a, b) => {
       if (sortBy === "date-asc") return a.date.localeCompare(b.date);
@@ -312,9 +318,14 @@ const TransactionTable = () => {
           placeholder="Search category, date, type, or amount..."
           value={search}
           onChange={(event) => setSearch(event.target.value)}
+          className="control control-search"
         />
 
-        <select value={filter} onChange={(event) => setFilter(event.target.value)}>
+        <select
+          value={filter}
+          onChange={(event) => setFilter(event.target.value)}
+          className="control control-type"
+        >
           <option value="all">All</option>
           <option value="income">Income</option>
           <option value="expense">Expense</option>
@@ -323,6 +334,7 @@ const TransactionTable = () => {
         <select
           value={categoryFilter}
           onChange={(event) => setCategoryFilter(event.target.value)}
+          className="control control-category"
         >
           <option value="all">All categories</option>
           {categories.map((category) => (
@@ -332,47 +344,93 @@ const TransactionTable = () => {
           ))}
         </select>
 
-        <select value={sortBy} onChange={(event) => setSortBy(event.target.value as SortOption)}>
+        <div className="control control-date" aria-label="Filter by date range">
+          <div className="control-label">Date range</div>
+          <div className="date-range">
+            <label className="date-field">
+              <span className="date-field-label">From</span>
+              <input
+                type="date"
+                value={dateFrom}
+                aria-label="Start date"
+                onChange={(event) => setDateFrom(event.target.value)}
+              />
+            </label>
+
+            <label className="date-field">
+              <span className="date-field-label">To</span>
+              <input
+                type="date"
+                value={dateTo}
+                aria-label="End date"
+                onChange={(event) => setDateTo(event.target.value)}
+              />
+            </label>
+          </div>
+        </div>
+
+        <select
+          value={sortBy}
+          onChange={(event) => setSortBy(event.target.value as SortOption)}
+          className="control control-sort"
+        >
           <option value="date-desc">Newest first</option>
           <option value="date-asc">Oldest first</option>
           <option value="amount-desc">Highest amount</option>
           <option value="amount-asc">Lowest amount</option>
         </select>
 
-        <select value={groupBy} onChange={(event) => setGroupBy(event.target.value as GroupOption)}>
+        <select
+          value={groupBy}
+          onChange={(event) => setGroupBy(event.target.value as GroupOption)}
+          className="control control-group"
+        >
           <option value="none">No grouping</option>
           <option value="date">Group by date</option>
           <option value="category">Group by category</option>
           <option value="type">Group by type</option>
         </select>
 
-        <button
-          type="button"
-          className="ghost-button"
-          onClick={() => {
-            setSearch("");
-            setFilter("all");
-            setCategoryFilter("all");
-            setSortBy("date-desc");
-            setGroupBy("none");
-          }}
-        >
-          Reset
-        </button>
+        <div className="controls-actions control control-actions">
+          <button
+            type="button"
+            className="ghost-button"
+            onClick={() => {
+              setSearch("");
+              setFilter("all");
+              setCategoryFilter("all");
+              setDateFrom("");
+              setDateTo("");
+              setSortBy("date-desc");
+              setGroupBy("none");
+            }}
+          >
+            Reset
+          </button>
 
-        <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
-          Export CSV
-        </button>
+          <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
+            Export CSV
+          </button>
 
-        <button type="button" className="ghost-button" onClick={() => exportTransactions("json")}>
-          Export JSON
-        </button>
+          <button type="button" className="ghost-button" onClick={() => exportTransactions("json")}>
+            Export JSON
+          </button>
+        </div>
       </div>
+
+      {hasInvalidDateRange && (
+        <p className="validation-hint">Start date must be earlier than (or equal to) end date.</p>
+      )}
 
       <div className="results-summary">
         <span>{filteredTransactions.length} matching transactions</span>
-        <span>{getCurrency(visibleIncome)} income visible</span>
-        <span>{getCurrency(visibleExpense)} expenses visible</span>
+        {(dateFrom || dateTo) && (
+          <span>
+            Date: {dateFrom || "Any"} → {dateTo || "Any"}
+          </span>
+        )}
+        <span>{formatCurrency(visibleIncome)} income visible</span>
+        <span>{formatCurrency(visibleExpense)} expenses visible</span>
       </div>
 
       {statusMessage && <p className="status-banner">{statusMessage}</p>}
@@ -487,7 +545,7 @@ const TransactionTable = () => {
                               )}
                             </div>
                           ) : (
-                            getCurrency(transaction.amount)
+                            formatCurrency(transaction.amount)
                           )}
                         </td>
 

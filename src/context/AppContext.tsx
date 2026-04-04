@@ -1,24 +1,31 @@
 import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { Role, Theme, Transaction } from "../types/transactions";
+import type { CurrencyCode } from "../types/currency";
 import { transactions as mockTransactions } from "../data/mockData";
 import { fetchMockTransactions } from "../data/mockApi";
+import { isCurrencyCode } from "../types/currency";
+import { formatCurrency as formatCurrencyUtil } from "../utils/formatCurrency";
 
 const STORAGE_KEY = "finance-dashboard-state";
 
 type StoredState = {
   role: Role;
   transactions: Transaction[];
+  currency: CurrencyCode;
 };
 
 type AppContextType = {
   transactions: Transaction[];
   role: Role;
   theme: Theme;
+  currency: CurrencyCode;
   isLoading: boolean;
   setRole: (role: Role) => void;
   setTheme: (theme: Theme) => void;
+  setCurrency: (currency: CurrencyCode) => void;
   toggleTheme: () => void;
+  formatCurrency: (value: number) => string;
   addTransaction: (transaction: Transaction) => void;
   updateTransaction: (transaction: Transaction) => void;
   deleteTransaction: (transactionId: string) => void;
@@ -31,6 +38,7 @@ const getInitialState = (): StoredState => {
     return {
       role: "viewer",
       transactions: mockTransactions,
+      currency: "LKR",
     };
   }
 
@@ -43,6 +51,7 @@ const getInitialState = (): StoredState => {
     return {
       role: "viewer",
       transactions: mockTransactions,
+      currency: "LKR",
     };
   }
 
@@ -54,11 +63,13 @@ const getInitialState = (): StoredState => {
       transactions: Array.isArray(parsedState.transactions)
         ? parsedState.transactions
         : mockTransactions,
+      currency: isCurrencyCode(parsedState.currency) ? parsedState.currency : "LKR",
     };
   } catch {
     return {
       role: "viewer",
       transactions: mockTransactions,
+      currency: "LKR",
     };
   }
 };
@@ -68,6 +79,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>(initialState.transactions);
   const [role, setRole] = useState<Role>(initialState.role);
   const [theme, setTheme] = useState<Theme>("dark");
+  const [currency, setCurrency] = useState<CurrencyCode>(initialState.currency);
   const [isLoading, setIsLoading] = useState(false);
 
   const addTransaction = (transaction: Transaction) => {
@@ -91,6 +103,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
   };
+
+  const formatCurrency = (value: number) => formatCurrencyUtil(value, currency);
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
@@ -123,9 +137,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       JSON.stringify({
         role,
         transactions,
+        currency,
       })
     );
-  }, [role, transactions]);
+  }, [role, transactions, currency]);
 
   return (
     <AppContext.Provider
@@ -133,10 +148,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         transactions,
         role,
         theme,
+        currency,
         isLoading,
         setRole,
         setTheme,
+        setCurrency,
         toggleTheme,
+        formatCurrency,
         addTransaction,
         updateTransaction,
         deleteTransaction,

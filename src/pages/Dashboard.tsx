@@ -58,8 +58,8 @@ const Dashboard = () => {
         <h3>Settings</h3>
         <div className="dashboard-settings-card">
           <p>
-            Theme + role are controlled from the top bar. Demo note: transactions and role
-            changes are stored locally in this browser.
+            Theme, role, and currency are controlled from the top bar. Demo note: transactions
+            and role changes are stored locally in this browser.
           </p>
         </div>
       </section>

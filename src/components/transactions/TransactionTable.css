@@ -51,6 +51,7 @@ table {
   margin: 0 auto;
   border-collapse: collapse;
   table-layout: fixed;
+  color: var(--text-soft);
 }
 
 th {
@@ -80,6 +81,8 @@ td {
   padding: 16px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   vertical-align: middle;
+  color: inherit;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
 }
 
 th:nth-child(4),
@@ -107,10 +110,91 @@ td:last-child {
 }
 
 .controls {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 12px;
   margin-bottom: 18px;
+  align-items: end;
+}
+
+.date-range {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 12px;
+}
+
+.control-label {
+  margin: 0 0 8px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.date-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.date-field-label {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.date-field input[type="date"] {
+  width: 100%;
+}
+
+.control {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.controls-actions {
+  display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.controls-actions .ghost-button {
+  width: auto;
+}
+
+@media (min-width: 920px) {
+  .control-search {
+    grid-column: span 6;
+  }
+
+  .control-type {
+    grid-column: span 2;
+  }
+
+  .control-category {
+    grid-column: span 4;
+  }
+
+  .control-date {
+    grid-column: span 4;
+  }
+
+  .control-sort {
+    grid-column: span 4;
+  }
+
+  .control-group {
+    grid-column: span 4;
+  }
+
+  .control-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
 }
 
 .controls input,
@@ -273,7 +357,6 @@ td select:focus {
 }
 
 @media (max-width: 720px) {
-  .controls,
   .section-heading,
   .results-summary {
     flex-direction: column;

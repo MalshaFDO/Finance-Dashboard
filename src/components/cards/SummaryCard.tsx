@@ -1,4 +1,5 @@
 import "./SummaryCard.css";
+import { useAppContext } from "../../context/AppContext";
 
 type Props = {
   title: string;
@@ -6,6 +7,8 @@ type Props = {
 };
 
 const SummaryCard = ({ title, amount }: Props) => {
+  const { formatCurrency } = useAppContext();
+
   const getClass = () => {
     if (title === "Income") return "card income";
     if (title === "Expenses") return "card expense";
@@ -15,13 +18,7 @@ const SummaryCard = ({ title, amount }: Props) => {
   return (
     <div className={getClass()}>
       <p className="card-title">{title}</p>
-      <h3 className="card-amount">
-        {new Intl.NumberFormat("en-LK", {
-          style: "currency",
-          currency: "LKR",
-          maximumFractionDigits: 0,
-        }).format(amount)}
-      </h3>
+      <h3 className="card-amount">{formatCurrency(amount)}</h3>
     </div>
   );
 };

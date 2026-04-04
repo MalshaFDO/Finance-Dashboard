@@ -2,14 +2,7 @@ import "./Insights.css";
 import { useAppContext } from "../context/AppContext";
 
 const Insights = () => {
-  const { transactions } = useAppContext();
-
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-LK", {
-      style: "currency",
-      currency: "LKR",
-      maximumFractionDigits: 0,
-    }).format(value);
+  const { transactions, formatCurrency } = useAppContext();
 
   const formatMonth = (date: string) =>
     new Date(`${date}T00:00:00`).toLocaleString("en-US", {

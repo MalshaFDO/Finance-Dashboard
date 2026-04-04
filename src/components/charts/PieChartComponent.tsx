@@ -11,7 +11,7 @@ import "./Charts.css";
 const COLORS = ["#4CAF50", "#FF6384", "#36A2EB", "#FFCE56"];
 
 const PieChartComponent = () => {
-  const { transactions } = useAppContext();
+  const { transactions, formatCurrency } = useAppContext();
 
   const categoryMap: { [key: string]: number } = {};
 
@@ -40,12 +40,18 @@ const PieChartComponent = () => {
         <div className="chart-frame">
           <ResponsiveContainer>
             <PieChart>
-              <Pie data={data} dataKey="value" label isAnimationActive animationDuration={700}>
+              <Pie
+                data={data}
+                dataKey="value"
+                label={({ name }) => name}
+                isAnimationActive
+                animationDuration={700}
+              >
                 {data.map((_, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip formatter={(value) => formatCurrency(Number(value))} />
             </PieChart>
           </ResponsiveContainer>
         </div>
