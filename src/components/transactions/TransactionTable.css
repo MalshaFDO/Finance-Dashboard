@@ -110,11 +110,43 @@ td:last-child {
 }
 
 .controls {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 18px;
+  display: grid;
+}
+
+.controls-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.controls-bar .control-search {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.filters-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.filters-toggle-icon {
+  opacity: 0.85;
+}
+
+.filters-panel {
+  display: none;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 12px;
   align-items: end;
+}
+
+.filters-panel.is-open {
+  display: grid;
+}
 }
 
 .date-range {
@@ -167,6 +199,14 @@ td:last-child {
 }
 
 @media (min-width: 920px) {
+  .filters-panel {
+    display: grid;
+  }
+
+  .filters-toggle {
+    display: none;
+  }
+
   .control-search {
     grid-column: span 6;
   }
@@ -268,6 +308,7 @@ td select {
   color: #d8f3e6;
   background: rgba(124, 224, 184, 0.12);
   border: 1px solid rgba(124, 224, 184, 0.2);
+  animation: banner-in 0.18s ease both;
 }
 
 .controls input::placeholder,
@@ -354,6 +395,18 @@ td select:focus {
 .empty-panel p {
   margin-top: 8px;
   color: var(--text-muted);
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 720px) {

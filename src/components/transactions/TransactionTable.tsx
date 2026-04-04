@@ -14,6 +14,7 @@ const TransactionTable = () => {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>("date-desc");
   const [groupBy, setGroupBy] = useState<GroupOption>("none");
   const [formState, setFormState] = useState({
@@ -27,6 +28,15 @@ const TransactionTable = () => {
   const [statusMessage, setStatusMessage] = useState("");
 
   const hasInvalidDateRange = Boolean(dateFrom && dateTo && dateFrom > dateTo);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 920px)");
+    const apply = () => setFiltersOpen(mediaQuery.matches);
+
+    apply();
+    mediaQuery.addEventListener("change", apply);
+    return () => mediaQuery.removeEventListener("change", apply);
+  }, []);
 
   const filteredTransactions = [...transactions]
     .filter((transaction) => {
@@ -313,108 +323,138 @@ const TransactionTable = () => {
       </datalist>
 
       <div className="controls">
-        <input
-          type="text"
-          placeholder="Search category, date, type, or amount..."
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          className="control control-search"
-        />
+        <div className="controls-bar">
+          <input
+            type="text"
+            placeholder="Search category, date, type, or amount..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="control control-search"
+          />
 
-        <select
-          value={filter}
-          onChange={(event) => setFilter(event.target.value)}
-          className="control control-type"
-        >
-          <option value="all">All</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-
-        <select
-          value={categoryFilter}
-          onChange={(event) => setCategoryFilter(event.target.value)}
-          className="control control-category"
-        >
-          <option value="all">All categories</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-
-        <div className="control control-date" aria-label="Filter by date range">
-          <div className="control-label">Date range</div>
-          <div className="date-range">
-            <label className="date-field">
-              <span className="date-field-label">From</span>
-              <input
-                type="date"
-                value={dateFrom}
-                aria-label="Start date"
-                onChange={(event) => setDateFrom(event.target.value)}
-              />
-            </label>
-
-            <label className="date-field">
-              <span className="date-field-label">To</span>
-              <input
-                type="date"
-                value={dateTo}
-                aria-label="End date"
-                onChange={(event) => setDateTo(event.target.value)}
-              />
-            </label>
-          </div>
-        </div>
-
-        <select
-          value={sortBy}
-          onChange={(event) => setSortBy(event.target.value as SortOption)}
-          className="control control-sort"
-        >
-          <option value="date-desc">Newest first</option>
-          <option value="date-asc">Oldest first</option>
-          <option value="amount-desc">Highest amount</option>
-          <option value="amount-asc">Lowest amount</option>
-        </select>
-
-        <select
-          value={groupBy}
-          onChange={(event) => setGroupBy(event.target.value as GroupOption)}
-          className="control control-group"
-        >
-          <option value="none">No grouping</option>
-          <option value="date">Group by date</option>
-          <option value="category">Group by category</option>
-          <option value="type">Group by type</option>
-        </select>
-
-        <div className="controls-actions control control-actions">
           <button
             type="button"
-            className="ghost-button"
-            onClick={() => {
-              setSearch("");
-              setFilter("all");
-              setCategoryFilter("all");
-              setDateFrom("");
-              setDateTo("");
-              setSortBy("date-desc");
-              setGroupBy("none");
-            }}
+            className="ghost-button filters-toggle"
+            aria-label={filtersOpen ? "Hide filters" : "Show filters"}
+            aria-expanded={filtersOpen}
+            aria-controls="transactions-filters"
+            onClick={() => setFiltersOpen((current) => !current)}
           >
-            Reset
+            <svg
+              className="filters-toggle-icon"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              aria-hidden="true"
+            >
+              <path
+                fill="currentColor"
+                d="M3 5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4A1 1 0 0 1 3 5Zm4 7a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1Zm3 7a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1Z"
+              />
+            </svg>
+            Filters
           </button>
+        </div>
 
-          <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
-            Export CSV
-          </button>
+        <div
+          id="transactions-filters"
+          className={`filters-panel ${filtersOpen ? "is-open" : ""}`}
+        >
+          <select
+            value={filter}
+            onChange={(event) => setFilter(event.target.value)}
+            className="control control-type"
+          >
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
 
-          <button type="button" className="ghost-button" onClick={() => exportTransactions("json")}>
-            Export JSON
-          </button>
+          <select
+            value={categoryFilter}
+            onChange={(event) => setCategoryFilter(event.target.value)}
+            className="control control-category"
+          >
+            <option value="all">All categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+
+          <div className="control control-date" aria-label="Filter by date range">
+            <div className="control-label">Date range</div>
+            <div className="date-range">
+              <label className="date-field">
+                <span className="date-field-label">From</span>
+                <input
+                  type="date"
+                  value={dateFrom}
+                  aria-label="Start date"
+                  onChange={(event) => setDateFrom(event.target.value)}
+                />
+              </label>
+
+              <label className="date-field">
+                <span className="date-field-label">To</span>
+                <input
+                  type="date"
+                  value={dateTo}
+                  aria-label="End date"
+                  onChange={(event) => setDateTo(event.target.value)}
+                />
+              </label>
+            </div>
+          </div>
+
+          <select
+            value={sortBy}
+            onChange={(event) => setSortBy(event.target.value as SortOption)}
+            className="control control-sort"
+          >
+            <option value="date-desc">Newest first</option>
+            <option value="date-asc">Oldest first</option>
+            <option value="amount-desc">Highest amount</option>
+            <option value="amount-asc">Lowest amount</option>
+          </select>
+
+          <select
+            value={groupBy}
+            onChange={(event) => setGroupBy(event.target.value as GroupOption)}
+            className="control control-group"
+          >
+            <option value="none">No grouping</option>
+            <option value="date">Group by date</option>
+            <option value="category">Group by category</option>
+            <option value="type">Group by type</option>
+          </select>
+
+          <div className="controls-actions control control-actions">
+            <button
+              type="button"
+              className="ghost-button"
+              onClick={() => {
+                setSearch("");
+                setFilter("all");
+                setCategoryFilter("all");
+                setDateFrom("");
+                setDateTo("");
+                setSortBy("date-desc");
+                setGroupBy("none");
+              }}
+            >
+              Reset
+            </button>
+
+            <button type="button" className="ghost-button" onClick={() => exportTransactions("csv")}>
+              Export CSV
+            </button>
+
+            <button type="button" className="ghost-button" onClick={() => exportTransactions("json")}>
+              Export JSON
+            </button>
+          </div>
         </div>
       </div>
 

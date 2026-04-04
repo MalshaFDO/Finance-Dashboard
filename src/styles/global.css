@@ -201,11 +201,33 @@ canvas {
     background: rgba(3, 7, 18, 0.56);
     backdrop-filter: blur(2px);
     z-index: 24;
+    animation: overlay-fade 0.18s ease both;
   }
 
   .main-content {
     margin-left: 0;
     width: 100%;
     min-width: 0;
+  }
+}
+
+@keyframes overlay-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

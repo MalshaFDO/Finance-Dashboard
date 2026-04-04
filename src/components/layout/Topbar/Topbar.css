@@ -268,6 +268,8 @@
   backdrop-filter: blur(16px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
   z-index: 40;
+  transform-origin: top right;
+  animation: profile-pop 0.18s ease both;
 }
 
 .app-layout.theme-light .profile-menu {
@@ -295,6 +297,18 @@
 .profile-menu-item:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
+}
+
+@keyframes profile-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (max-width: 900px) {
@@ -340,18 +354,15 @@
 @media (max-width: 520px) {
   .topbar-right {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(132px, 1.25fr) minmax(110px, 1fr) minmax(132px, 1fr) 36px;
     align-items: center;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: hidden;
     gap: 8px;
   }
 
   .theme-toggle-pill {
-    flex: 0 0 auto;
     justify-content: flex-start;
-    width: auto;
+    width: 100%;
     min-width: 0;
     height: 36px;
     padding: 4px 10px 4px 6px;
@@ -363,6 +374,9 @@
   .theme-toggle-label {
     display: inline;
     font-size: 0.76rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .theme-toggle-track {
@@ -381,7 +395,7 @@
   }
 
   .role-pill {
-    flex: 1 1 0;
+    width: 100%;
     min-width: 0;
     height: 36px;
     padding: 5px 10px 5px 12px;
@@ -392,8 +406,8 @@
   }
 
   .currency-pill {
-    flex: 0 0 170px;
-    min-width: 170px;
+    width: 100%;
+    min-width: 0;
     height: 36px;
     padding: 5px 10px 5px 12px;
     gap: 6px;
@@ -415,29 +429,49 @@
   }
 
   .role-pill select {
+    flex: 1 1 auto;
     min-width: 0;
     width: 100%;
     padding: 5px 26px 5px 10px;
     font-size: 0.78rem;
+    color: var(--text-strong);
+    -webkit-text-fill-color: var(--text-strong);
   }
 
   .currency-pill select {
+    flex: 1 1 auto;
     min-width: 0;
     width: 100%;
     padding: 5px 22px 5px 8px;
     font-size: 0.78rem;
     font-weight: 800;
+    color: var(--text-strong);
+    -webkit-text-fill-color: var(--text-strong);
+  }
+
+  .profile {
+    justify-self: end;
   }
 
   .avatar {
-    flex: 0 0 auto;
     width: 36px;
     min-width: 36px;
     height: 36px;
   }
+
+  .profile-menu {
+    position: fixed;
+    top: 74px;
+    right: 12px;
+    width: min(92vw, 220px);
+  }
 }
 
 @media (max-width: 380px) {
+  .topbar-right {
+    grid-template-columns: minmax(118px, 1.2fr) minmax(104px, 1fr) minmax(118px, 1fr) 34px;
+  }
+
   .topbar-left {
     gap: 10px;
   }
