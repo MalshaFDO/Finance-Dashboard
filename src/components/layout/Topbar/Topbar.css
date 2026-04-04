@@ -355,12 +355,16 @@
   .topbar-right {
     width: 100%;
     display: grid;
-    grid-template-columns: minmax(132px, 1.25fr) minmax(110px, 1fr) minmax(132px, 1fr) 36px;
+    grid-template-columns: minmax(0, 1fr) 36px;
+    grid-template-areas:
+      "theme profile"
+      "role currency";
     align-items: center;
     gap: 8px;
   }
 
   .theme-toggle-pill {
+    grid-area: theme;
     justify-content: flex-start;
     width: 100%;
     min-width: 0;
@@ -395,6 +399,7 @@
   }
 
   .role-pill {
+    grid-area: role;
     width: 100%;
     min-width: 0;
     height: 36px;
@@ -406,6 +411,7 @@
   }
 
   .currency-pill {
+    grid-area: currency;
     width: 100%;
     min-width: 0;
     height: 36px;
@@ -450,6 +456,7 @@
   }
 
   .profile {
+    grid-area: profile;
     justify-self: end;
   }
 
@@ -469,7 +476,10 @@
 
 @media (max-width: 380px) {
   .topbar-right {
-    grid-template-columns: minmax(118px, 1.2fr) minmax(104px, 1fr) minmax(118px, 1fr) 34px;
+    grid-template-columns: minmax(0, 1fr) 34px;
+    grid-template-areas:
+      "theme profile"
+      "role currency";
   }
 
   .topbar-left {
@@ -522,8 +532,7 @@
   }
 
   .currency-pill {
-    flex-basis: 152px;
-    min-width: 152px;
+    min-width: 0;
   }
 
   .role-pill-label,
